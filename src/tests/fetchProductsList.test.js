@@ -24,8 +24,6 @@ describe('Teste a função fetchProductsList', () => {
     expect(() =>  fetchProductsList() ).toThrow(new Error('Termo de busca não informado'));
   });
 
-  
-
   // it('...', () => {
   // });
 });
