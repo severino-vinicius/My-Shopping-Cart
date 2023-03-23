@@ -8,12 +8,19 @@ document.querySelector('.cep-button').addEventListener('click', searchCep);
 const products = document.querySelector('.products');
 const getProducts = await fetchProductsList('computador');
 
-const listOfItens = () => getProducts
-  .forEach((element) => products.appendChild(createProductElement({
+const removeLoading = () => {
+  const loading = document.querySelector('.loading');
+  loading.remove();
+};
+
+const listOfItens = () => {
+  getProducts.forEach((element) => products.appendChild(createProductElement({
     id: element.id,
     title: element.title,
     thumbnail: element.thumbnail,
     price: element.price,
   })));
+};
 
-listOfItens();
+await listOfItens();
+removeLoading();
