@@ -7,7 +7,6 @@ document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 const products = document.querySelector('.products');
 
-
 const loading = document.querySelector('.loading');
 
 const removeLoading = () => {
