@@ -24,6 +24,10 @@ describe('Teste a função fetchProductsList', () => {
     expect(() =>  fetchProductsList() ).toThrow(new Error('Termo de busca não informado'));
   });
 
+  it('Verifica se ao passar fetchProductsList com paramentro errado retorna o erro "Algum erro ocorreu, recarregue a página e tente novamente" ', async () => {
+    await expect(() =>  fetchProductsList('zzzzzzz')).rejects.toThrow();
+  });
+
   // it('...', () => {
   // });
 });

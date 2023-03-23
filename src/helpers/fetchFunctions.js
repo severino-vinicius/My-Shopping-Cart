@@ -1,5 +1,12 @@
-export const fetchProduct = () => {
-  // seu código aqui
+const cartEndpoint = 'https://api.mercadolibre.com/items/';
+
+export const fetchProduct = (productId) => {
+  if (!productId) {
+    throw new Error('ID não informado');
+  }
+  return fetch(`${cartEndpoint}${productId}`)
+    .then((response) => response.json())
+    .then((data) => data.results);
 };
 
 const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=';
@@ -12,8 +19,7 @@ export const fetchProductsList = (query) => {
   }
   return fetch(`${endpoint}${query}`)
     .then((response) => response.json())
-    .then((data) => data.results)
-    .catch((error) => errorMensage);
+    .then((data) => data.results);
 };
 
 // console.log(await fetchProductsList('computador'));

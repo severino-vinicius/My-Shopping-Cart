@@ -6,7 +6,7 @@ import './style.css';
 document.querySelector('.cep-button').addEventListener('click', searchCep);
 
 const products = document.querySelector('.products');
-const getProducts = await fetchProductsList('computador');
+
 
 const loading = document.querySelector('.loading');
 
@@ -14,22 +14,21 @@ const removeLoading = () => {
   loading.remove();
 };
 
-// const mensageErrorP = document.querySelector('#placeholder-error');
-
-const listOfItens = () => {
-  if (getProducts === errorMensage) {
-    removeLoading();
-    const p = document.createElement('p');
-    p.className = 'error';
-    p.innerHTML = errorMensage;
-    products.appendChild(p);
-  } else {
+const listOfItens = async () => {
+  try {
+    const getProducts = await fetchProductsList('computador');
     getProducts.forEach((element) => products.appendChild(createProductElement({
       id: element.id,
       title: element.title,
       thumbnail: element.thumbnail,
       price: element.price,
     })));
+  } catch {
+    removeLoading();
+    const p = document.createElement('p');
+    p.className = 'error';
+    p.innerHTML = errorMensage;
+    products.appendChild(p);
   }
 };
 
