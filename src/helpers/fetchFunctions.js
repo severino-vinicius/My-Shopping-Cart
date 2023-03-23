@@ -1,12 +1,11 @@
-const cartEndpoint = 'https://api.mercadolibre.com/items/';
+const cartEndpoint = 'https://api.mercadolibre.com/items';
 
-export const fetchProduct = (productId) => {
-  if (!productId) {
-    throw new Error('ID não informado');
-  }
-  return fetch(`${cartEndpoint}${productId}`)
-    .then((response) => response.json())
-    .then((data) => data.results);
+export const fetchProduct = async (productId) => {
+  if (productId && productId.length > 0) {
+    return fetch(`${cartEndpoint}/${productId}`)
+      .then((response) => response.json())
+      .then((data) => data);
+  } throw new Error('ID não informado');
 };
 
 const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=';

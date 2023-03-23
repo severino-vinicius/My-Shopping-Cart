@@ -20,6 +20,6 @@ describe('Teste a função fetchProduct', () => {
   });
 
   it('Verifica se ao passar fetchProduct sem paramentro retorna o erro "Termo de busca não informado" ', () => {
-    expect(() =>  fetchProduct() ).toThrow(new Error('ID não informado'));
+    expect(() =>  fetchProduct() ).rejects.toThrow(new Error('ID não informado'));
   });
 });
