@@ -20,5 +20,3 @@ export const fetchProductsList = (query) => {
     .then((response) => response.json())
     .then((data) => data.results);
 };
-
-// console.log(await fetchProductsList('computador'));
