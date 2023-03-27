@@ -1,4 +1,4 @@
-import { removeCartID, saveCartID } from './cartFunctions';
+import { removeCartID, saveCartID, getSavedCartIDs } from './cartFunctions';
 import { fetchProduct } from './fetchFunctions';
 
 // Esses comentários que estão antes de cada uma das funções são chamados de JSdoc,
@@ -101,6 +101,23 @@ export const createCartProductElement = ({ id, title, price, pictures }) => {
  * @param {number} product.price - Preço do produto.
  * @returns {Element} Elemento de produto.
  */
+
+export const handlePriceOfItens = async () => {
+  const productIds = getSavedCartIDs();
+  let sumPrices = 0;
+  const totalPrice = document.querySelector('.total-price');
+  if (productIds.length > 0) {
+    const productsFromLS = productIds.map((id) => fetchProduct(id));
+    const productAllInfo = await Promise.all(productsFromLS);
+    productAllInfo.forEach((element) => {
+      sumPrices += element.price;
+      totalPrice.innerHTML = sumPrices.toFixed(2);
+    });
+  } else {
+    totalPrice.innerHTML = 0;
+  }
+};
+
 export const createProductElement = ({ id, title, thumbnail, price }) => {
   const section = document.createElement('section');
   section.className = 'product';
@@ -126,8 +143,12 @@ export const createProductElement = ({ id, title, thumbnail, price }) => {
     const item = await fetchProduct(id);
     saveCartID(id);
     const createMyCart = createCartProductElement(item);
+    createMyCart.addEventListener('click', () => {
+      handlePriceOfItens();
+    });
     const getListPlaceHolder = document.querySelector('.cart__products');
     getListPlaceHolder.appendChild(createMyCart);
+    handlePriceOfItens();
   }); // Realizado Requisito 8 com ajuda do Andre na Mentoria
   section.appendChild(cartButton);
 

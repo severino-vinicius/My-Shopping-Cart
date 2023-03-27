@@ -1,7 +1,8 @@
 import { getSavedCartIDs } from './helpers/cartFunctions';
 import { searchCep } from './helpers/cepFunctions';
 import { fetchProductsList, errorMensage, fetchProduct } from './helpers/fetchFunctions';
-import { createCartProductElement, createProductElement } from './helpers/shopFunctions';
+import { createCartProductElement, createProductElement,
+  handlePriceOfItens } from './helpers/shopFunctions';
 import './style.css';
 
 document.querySelector('.cep-button').addEventListener('click', searchCep);
@@ -43,10 +44,11 @@ const creatMyOldCart = async () => {
   resultPromiseAll.forEach(({ id, title, price, pictures }) => {
     const myCart = document.querySelector('.cart__products');
     myCart.appendChild(createCartProductElement({ id, title, price, pictures }));
+    myCart.addEventListener('click', () => {
+      handlePriceOfItens();
+    });
   });
 };
 
 creatMyOldCart();
-
-// window.onload = () => {
-// };
+handlePriceOfItens();
